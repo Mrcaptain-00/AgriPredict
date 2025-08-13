@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Agri-Price Predictor: Smart Farming price Insights</title>
+    <link rel="icon" href="AgriPredict.jpg" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#home" class="logo">
+                <img src="AgriPredict.jpg" alt="Agri-Price Logo">
+                AgriPredict
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#home" data-page="home">Home</a></li>
+                    <li><a href="#predict" data-page="predict">Predict Price</a></li>
+                    <li><a href="#submit-data" data-page="submit-data">Submit Actual Data</a></li>
+                    <li><a href="#contact" data-page="contact">Contact</a></li>
+                    <li><a href="#about" data-page="about">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="app-content" style="margin-top: 80px;">
+        <section id="home-page" class="page-section active">
+            <section class="hero">
+                <div class="hero-background"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content text-center">
+                    <h1>Empowering Farmers with Price Intelligence</h1>
+                    <p>Predict future agricultural prices with high accuracy using our advanced ML models. 
+                        Make informed decisions for better yields and profits. 
+                        Understand the need of correct price evaluation of your goods.
+                    </p>
+                    <a href="#predict" class="btn" data-page="predict">Start Predicting Now</a>
+                </div>
+            </section>
+
+            <section class="features-section section-padding container text-center">
+                <h2>Why Choose AgriPredict?</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <img src="analytical-insights-icon.jpg" alt="Accurate Insights Icon">
+                        <h3>Accurate Insights</h3>
+                        <p>Leverage advanced machine learning to get highly reliable price forecasts.</p>
+                    </div>
+                    <div class="feature-card" style="animation-delay: 0.1s;">
+                        <img src="Data_Driven.jpg" alt="Data-Driven Decisions Icon">
+                        <h3>Data-Driven Decisions</h3>
+                        <p>Optimize your selling strategy with predictions based on comprehensive agricultural data from all over india.</p>
+                    </div>
+                    <div class="feature-card" style="animation-delay: 0.2s;">
+                        <img src="User_friendly_interface.jpeg" alt="User -Friendly Interface Icon">
+                        <h3>User-Friendly Interface</h3>
+                        <p>An intuitive and easy-to-use platform designed for everyone, from farmers to traders.</p>
+                    </div>
+                    <div class="feature-card" style="animation-delay: 0.3s;">
+                        <img src="Regional_coverage.jpg" alt="Regional Coverage Icon">
+                        <h3>Regional Coverage</h3>
+                        <p>Get tailored predictions for various regions and a wide range of crops.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- Predict Price Page Content -->
+        <section id="predict-page" class="page-section">
+            <section class="prediction-section section-padding container">
+                <h2 class="text-center">Get Your Crop Price Prediction</h2>
+                <form id="predictionForm" class="prediction-form">
+                    <div class="form-group">
+                        <label for="region">Region</label>
+                        <select id="region" name="region" required>
+                            <option value="">Select Region</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="crop">Crop</label>
+                        <select id="crop" name="crop" required>
+                            <option value="">Select Crop</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="Onion">Onion</option>
+                            <option value="Tomato">Tomato</option>
+                            <option value="Maize">Maize</option>
+                            <option value="Potato">Potato</option>
+                            <option value="Rice">Rice</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="variety">Variety</label>
+                        <select id="variety" name="variety" required disabled>
+                            <option value="">Select Variety</option>
+                            <!-- Options will be dynamically loaded by JS -->
+                        </select>
+                    </div>
+
+                    <!-- Rainfall Input Group -->
+                    <div class="form-group">
+                        <label for="rainfall">Rainfall (mm)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="rainfall_text" class="linked-input" min="0" max="200" step="0.1" value="50.0" name="rainfall" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="rainfall" class="linked-slider" min="0" max="200" step="0.1" value="50" required>
+                                <span class="slider-value-display" id="rainfall_value_display">50.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Temperature Input Group -->
+                    <div class="form-group">
+                        <label for="temperature">Temperature (°C)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="temperature_text" class="linked-input" min="10" max="45" step="0.1" value="25.0" name="temperature" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="temperature" class="linked-slider" min="10" max="45" step="0.1" value="25" required>
+                                <span class="slider-value-display" id="temperature_value_display">25.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="arrival">Arrival (Quintals)</label>
+                        <input type="number" id="arrival" name="arrival" min="0" max="5000" step="0.01" value="1000" required>
+                    </div>
+
+                    <!-- Humidity Input Group -->
+                    <div class="form-group">
+                        <label for="humidity">Humidity (%)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="humidity_text" class="linked-input" min="0" max="100" step="0.1" value="60.0" name="humidity" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="humidity" class="linked-slider" min="0" max="100" step="0.1" value="60" required>
+                                <span class="slider-value-display" id="humidity_value_display">60.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pesticide Used Input Group -->
+                    <div class="form-group">
+                        <label for="pesticide">Pesticide Used (litres/ha)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="pesticide_text" class="linked-input" min="0" max="10" step="0.01" value="3.00" name="pesticide" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="pesticide" class="linked-slider" min="0" max="10" step="0.01" value="3" required>
+                                <span class="slider-value-display" id="pesticide_value_display">3.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Predict Prices</button>
+                        <button type="reset" class="btn" style="background: linear-gradient(45deg, #607D8B, #90A4AE);">Clear Form</button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="results-section" class="results-section section-padding container">
+                <h2 class="text-center">Predicted Prices</h2>
+                <div class="price-cards">
+                    <div class="price-card" id="minPriceCard">
+                        <h3>Min Price</h3>
+                        <p class="price-value" id="minPrice">0.00 <span>Rs/qtl</span></p>
+                    </div>
+                    <div class="price-card" id="maxPriceCard">
+                        <h3>Max Price</h3>
+                        <p class="price-value" id="maxPrice">0.00 <span>Rs/qtl</span></p>
+                    </div>
+                    <div class="price-card" id="modalPriceCard">
+                        <h3>Modal Price</h3>
+                        <p class="price-value" id="modalPrice">0.00 <span>Rs/qtl</span></p>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="priceChart"></canvas>
+                </div>
+                <p class="chart-context-text text-center">
+                    The chart illustrates the predicted minimum, modal (most frequent), and maximum prices per quintal (Rs/qtl) based on your inputs.
+                </p>
+            </section>
+        </section>
+
+        <!-- About Us Page Content -->
+        <section id="about-page" class="page-section">
+            <section class="about-section section-padding container text-center">
+                <h2>About AgriPredict</h2>
+                <p>AgriPredict is dedicated to empowering the agricultural community with cutting-edge technology. Our platform leverages advanced machine learning models to provide accurate price predictions for various crops across different regions, helping farmers and stakeholders make informed decisions, optimize their sales, and enhance profitability. We believe in a future where data-driven insights lead to sustainable and prosperous farming.</p>
+                <p>Our model considers crucial factors like rainfall, temperature, humidity, pesticide usage, and market arrival to deliver reliable forecasts. We are committed to continuous improvement and expanding our capabilities to serve the agricultural sector better.</p>
+                <div class="feature-grid" style="margin-top: 60px;">
+                    <div class="feature-card" style="background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1);">
+                        <img src="our_team.jpg" alt="Our Team Icon">
+                        <h3>Our Team</h3>
+                        <p>A passionate group of data scientists, agricultural experts, and developers.</p>
+                    </div>
+                    <div class="feature-card" style="background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); animation-delay: 0.1s;">
+                        <img src="data_privacy.png" alt="Data Privacy Icon">
+                        <h3>Data Privacy</h3>
+                        <p>Your data is secure with us. We adhere to strict privacy policies.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+         <!-- Contact Page Content -->
+        <section id="contact-page" class="page-section">
+            <section class="contact-section section-padding container text-center">
+                <h2>Contact Us</h2>
+                <p>Have questions or feedback? We'd love to hear from you. Reach out to us through the form below or directly via email.</p>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="contactName">Your Name</label>
+                        <!-- Add name="from_name" -->
+                        <input type="text" id="contactName" name="from_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Your Email</label>
+                        <!-- Add name="from_email" -->
+                        <input type="email" id="contactEmail" name="from_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <!-- Add name="message" -->
+                        <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Send Message</button>
+                    </div>
+                </form>
+                <div style="margin-top: 40px; font-size: 1.1em;">
+                    <p>Email: <a href="mailto:info@agripredict.com" style="color: var(--color-primary-dark); text-decoration: none; font-weight: bold;">info@agripredict.com</a></p>
+                    <p>Phone: <a href="tel:+1234567890" style="color: var(--color-primary-dark); text-decoration: none; font-weight: bold;">+1 (234) 567-890</a></p>
+                    <div class="social-links" style="margin-top: 20px;">
+                        <a href="#" target="_blank" style="margin: 0 10px;"><img src="linkdienimg.webp" alt="LinkedIn" width="30" height="30"></a>
+                        <a href="#" target="_blank" style="margin: 0 10px;"><img src="instalogo.jpeg" alt="Instagram" width="30" height="30"></a>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+        <!-- Submit Actual Data Page Content -->
+        <section id="submit-data-page" class="page-section">
+            <section class="data-submission-section section-padding container text-center">
+                <h2>Submit Actual Market Data</h2>
+                <p>Help us improve our predictions by submitting real market prices you've observed.</p>
+                <form id="actualDataForm" class="prediction-form">
+                    <!-- Re-use the same form groups as the prediction form for consistency -->
+                    <div class="form-group">
+                        <label for="actual_region">Region</label>
+                        <select id="actual_region" name="region" required>
+                            <option value="">Select Region</option>
+                            <option value="Punjab">Punjab</option>
+                            <option value="Maharashtra">Maharashtra</option>
+                            <option value="Tamil Nadu">Tamil Nadu</option>
+                            <option value="Bihar">Bihar</option>
+                            <option value="Karnataka">Karnataka</option>
+                            <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actual_crop">Crop</label>
+                        <select id="actual_crop" name="crop" required>
+                            <option value="">Select Crop</option>
+                            <option value="Wheat">Wheat</option>
+                            <option value="Onion">Onion</option>
+                            <option value="Tomato">Tomato</option>
+                            <option value="Maize">Maize</option>
+                            <option value="Potato">Potato</option>
+                            <option value="Rice">Rice</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actual_variety">Variety</label>
+                        <select id="actual_variety" name="variety" required disabled>
+                            <option value="">Select Variety</option>
+                            <!-- Options will be dynamically loaded by JS -->
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actual_rainfall">Rainfall (mm)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="actual_rainfall_text" class="linked-input" min="0" max="200" step="0.1" value="50.0" name="rainfall" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="actual_rainfall" class="linked-slider" min="0" max="200" step="0.1" value="50" required>
+                                <span class="slider-value-display" id="actual_rainfall_value_display">50.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actual_temperature">Temperature (°C)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="actual_temperature_text" class="linked-input" min="10" max="45" step="0.1" value="25.0" name="temperature" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="actual_temperature" class="linked-slider" min="10" max="45" step="0.1" value="25" required>
+                                <span class="slider-value-display" id="actual_temperature_value_display">25.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actual_arrival">Arrival (Quintals)</label>
+                        <input type="number" id="actual_arrival" name="arrival" min="0" max="5000" step="0.01" value="1000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actual_humidity">Humidity (%)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="actual_humidity_text" class="linked-input" min="0" max="100" step="0.1" value="60.0" name="humidity" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="actual_humidity" class="linked-slider" min="0" max="100" step="0.1" value="60" required>
+                                <span class="slider-value-display" id="actual_humidity_value_display">60.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="actual_pesticide">Pesticide Used (litres/ha)</label>
+                        <div class="input-controls-wrapper">
+                            <input type="number" id="actual_pesticide_text" class="linked-input" min="0" max="10" step="0.01" value="3.00" name="pesticide" required>
+                            <div class="slider-with-value">
+                                <input type="range" id="actual_pesticide" class="linked-slider" min="0" max="10" step="0.01" value="3" required>
+                                <span class="slider-value-display" id="actual_pesticide_value_display">3.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New fields for actual prices -->
+                    <div class="form-group">
+                        <label for="actual_min_price">Actual Min Price (Rs/qtl)</label>
+                        <input type="number" id="actual_min_price" name="min_price" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="actual_max_price">Actual Max Price (Rs/qtl)</label>
+                        <input type="number" id="actual_max_price" name="max_price" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="actual_modal_price">Actual Modal Price (Rs/qtl)</label>
+                        <input type="number" id="actual_modal_price" name="modal_price" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn">Submit Data</button>
+                        <button type="reset" class="btn" style="background: linear-gradient(45deg, #607D8B, #90A4AE);">Clear Form</button>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </main>
+
+   <footer>
+    
+    <div class="container">
+        <p> @ 2025 AgriPredict. All rights reserved.</p>
+    </div>
+</footer>
+
+
+        <div class="loading-overlay" id="loadingOverlay" role="status" aria-live="assertive">
+            <div class="spinner"></div>
+            <p class="loadting-text">Analyzing market trends...</p>
+        </div>
+        
+     <!-- Add EmailJS SDK before your script.js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS Public Key (User ID)
+            emailjs.init("JhhWeLuRf_v78QLdz"); 
+        })();
+    </script>
+    
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
