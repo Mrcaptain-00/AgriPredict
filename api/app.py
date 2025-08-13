@@ -10,10 +10,12 @@ from marshmallow import Schema, fields, validate, ValidationError
 from datetime import datetime
 import csv
 
-app = Flask(__name__, static_folder='.')
+app = Flask(__name__)
 
 CORS(app)
-
+@app.route("/")
+def home():
+    return jsonify({"message": "Hello from AgriPredict on Vercel!"})
 # Define the expected order of columns for the input DataFrame
 FEATURE_COLUMNS = [
     'Rainfall (mm)', 'Temperature (°C)', 'Arrival (Quintals)', 'Humidity (%)', 'Pesticide Used (litres/ha)',
@@ -249,4 +251,5 @@ def submit_actual_data():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
